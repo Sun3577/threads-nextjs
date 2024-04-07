@@ -44,7 +44,7 @@ export default function LeftSidebar() {
                 width={24}
                 height={24}
               />
-              <p className="text-light-2">Logout</p>
+              <p className="text-light-2 max-lg:hidden">Logout</p>
             </div>
           </SignOutButton>
         </SignedIn>
