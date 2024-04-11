@@ -10,9 +10,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { fetchUser } from "@/lib/actions/user.actions";
 
-export default async function Page({ params }: { params: { id: string } }) {
+async function Page({ params }: { params: { id: string } }) {
   const user = await currentUser();
   if (!user) return null;
+
   const userInfo = await fetchUser(params.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
@@ -39,12 +40,11 @@ export default async function Page({ params }: { params: { id: string } }) {
                   height={24}
                   className="object-contain"
                 />
-
                 <p className="max-sm:hidden">{tab.label}</p>
 
                 {tab.label === "Threads" && (
                   <p className="ml-1 rounded-sm bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">
-                    {userInfo?.threads?.length}
+                    {userInfo.threads.length}
                   </p>
                 )}
               </TabsTrigger>
@@ -53,9 +53,10 @@ export default async function Page({ params }: { params: { id: string } }) {
           {profileTabs.map((tab) => (
             <TabsContent
               key={`content-${tab.label}`}
-              value={tab.label}
+              value={tab.value}
               className="w-full text-light-1"
             >
+              {/* @ts-ignore */}
               <ThreadsTab
                 currentUserId={user.id}
                 accountId={userInfo.id}
@@ -68,3 +69,4 @@ export default async function Page({ params }: { params: { id: string } }) {
     </section>
   );
 }
+export default Page;
