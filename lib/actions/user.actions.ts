@@ -13,6 +13,8 @@ export async function fetchUser(userId: string) {
   try {
     connectToDB();
 
+    // userId에 해당하는 User를 찾는데, User의 communities에 추가 정보를 얻기 위해서
+    // Community Model을 참조하여 정보를 가져옴
     return await User.findOne({ id: userId }).populate({
       path: "communities",
       model: Community,
